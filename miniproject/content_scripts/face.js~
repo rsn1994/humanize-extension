@@ -1,0 +1,86 @@
+
+
+window.fbAsyncInit = initFacebook;
+
+function initFacebook()
+{
+    FB.init({
+      appId: '352671538404366',
+                status: true,
+                cookie: true,
+                xfbml: true
+    });
+
+    FB.getLoginStatus(onFacebookLoginStatus);
+};
+
+(function() {
+    var e = document.createElement('script');
+    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+    e.async = true;
+    document.getElementById('fb-root').appendChild(e);
+    }());
+    //the login function
+function facebookLogin()
+{
+    var loginUrl="http://www.facebook.com/dialog/oauth/?"+
+        "scope=publish_stream&"+
+        "client_id="+APP_ID+"&"+
+        "redirect_uri="+document.location.href+"&"+
+        "response_type=token";
+    window.location=loginUrl;
+}
+
+
+//Callback function for FB.login
+function onFacebookLoginStatus(response)
+{
+    if (response.status=="connected" && response.authResponse)
+    {
+        document.getElementById("txtEcho").innerHTML="Logged in.";
+
+    }
+    else
+    {
+        document.getElementById("txtEcho").innerHTML="Not logged in.";
+    }
+
+}
+
+
+    //post to wall function
+function postToWallUsingFBApi()
+{
+    var data=
+    {
+        caption: 'This is my wall post example',
+        message: 'Posted using FB.api',
+        link: 'http://wwww.permadi.com/blog/',
+     }
+    FB.api('/me/feed', 'post', data, onPostToWallCompleted);
+}
+
+    //the return function after posting to wall
+function onPostToWallCompleted(response)
+{
+    if (response)
+    {
+        if (response.error)
+        {
+            document.getElementById("txtEcho").innerHTML=response.error.message;
+        }
+        else
+        {
+            if (response.id)
+                document.getElementById("txtEcho").innerHTML="Posted as post_id "+response.id;
+            else if (response.post_id)
+                document.getElementById("txtEcho").innerHTML="Posted as post_id "+response.post_id;
+            else
+                document.getElementById("txtEcho").innerHTML="Unknown Error";
+        }
+    }
+}
+initFacebook();
+facebookLogin();
+postToWallUsingFBApi();
+

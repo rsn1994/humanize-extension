@@ -1,0 +1,30 @@
+{
+
+  "description": "helps visually impaired people",
+  "manifest_version": 2,
+  "name": "Humanize",
+  "version": "1.0",
+  "icons": {
+    "48": "icons/lens-48.png"
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "lens@mozilla.org",
+      "strict_min_version": "45.0"
+    }
+  },
+ "permissions": [
+    "activeTab","http://www.humanize.gq","http://www.facebook.com"
+  ], 
+"browser_action": {
+    "default_icon": "icons/lens-32.png",
+    "default_title": "Humanize"
+  },
+
+   "background": {
+    "scripts": ["lens.js"]
+  }
+
+}
+

@@ -1,0 +1,45 @@
+
+var images = document.getElementsByTagName('img'); 
+
+for(var i = 0; i < images.length; i++) {
+ if(images[i].alt==="")
+{
+var str=images[i].src
+url = "http://www.humanize.gq/postHandler.php?";
+url += "data[]=" + str;
+url += "&";
+console.log(url);
+
+ var xhr = new XMLHttpRequest();
+ xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 ) {
+                images[i].alt=JSON.parse(this.responseText);
+            }
+        }
+        xhr.send();
+}
+   
+
+/*
+
+
+http://www.humanize.gq/postHandler.php?callback=myCallback&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Freflection_banner.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fexploration.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fdiscovery_banner.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fevaluvation.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fexcellence.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2FAspiration.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fdiscovery_banner2.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2FIntegrity.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2FVC-Mam.png%3F1465902847&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_1.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_2.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_3.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_4.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_5.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_6.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fall%2Fthemes%2Fpondiuni%2Fimages%2Fnews_letter.gif&data%5B%5D=&_=1477315237088
+
+
+var x = "http://www.humanize.gq/postHandler.php?callback=myCallback&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Freflection_banner.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fexploration.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fdiscovery_banner.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fevaluvation.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fexcellence.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2FAspiration.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2Fdiscovery_banner2.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2Fimagecache%2Fslideshow_banner%2FIntegrity.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fdefault%2Ffiles%2FVC-Mam.png%3F1465902847&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_1.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_2.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_3.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_4.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_5.jpg&data%5B%5D=http%3A%2F%2Fwww.pucul.edu.in%2Fimage_6.jpg&data%5B%5D=http%3A%2F%2Fwww.pondiuni.edu.in%2Fsites%2Fall%2Fthemes%2Fpondiuni%2Fimages%2Fnews_letter.gif&data%5B%5D=&_=1477315237088";
+
+var xhr = new XMLHttpRequest();
+     xhr.open("GET", x, true);
+     xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+	// paste your code here 
+	console.log(this.responseText);
+       }
+     }
+     xhr.send();
+
+
+
+
+*/

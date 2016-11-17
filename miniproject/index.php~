@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+    <title>My first HTML page</title>
+</head>
+
+<body>
+<?php
+$data =$_POST['data'];
+  foreach($data as $d){
+     echo $d;
+  }
+?>
+<div id="fb-root"></div>
+
+        <script>
+        window.fbAsyncInit = function() {
+                FB.init({
+                appId: '352671538404366',
+                status: true,
+                cookie: true,
+                xfbml: true
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+        }(document));
+function login() {
+            FB.login(function(response) {
+
+            // handle the response
+            console.log("Response goes here!");
+
+            }, {scope: 'publish_pages' });
+}
+function logout() {
+            FB.logout(function(response) {
+              // user is now logged out
+            });
+        }
+function post()
+{
+FB.api('/me/feed', 'post', { message: 'my first status' }, function(response) {
+  if (!response || response.error) {
+    alert('Error occured');
+  } else {
+    alert('Post ID: ' + response.id);
+  }
+});
+}
+function share()
+{
+FB.api('/me/feed', 'post', { link: 'http://www.google.com' }, function(response) {
+  if (!response || response.error) {
+    alert('Error occured');
+  } else {
+    alert('Post ID: ' + response.id);
+  }
+});
+}
+function upload()
+{
+FB.api('/me/photos', 'post', { url: 'https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/c28.31.160.160/p200x200/14329988_1150582625022337_3623852250086344957_n.jpg?oh=bac9cd1974a9fdeb283cc93ef7c7df90&oe=586D2897' }, function(response) {
+  if (!response || response.error) {
+    alert('Error occured');
+  } else {
+    alert('Post ID: ' + response.id);
+  }
+});
+}
+function postToPage(){
+          
+
+  FB.api('/1493608767521631/feed', 'post', { message: 'hello fb-page world', access_token:'EAAFAwL3E3A4BAEn0aBk6YNUJ14xXi4W6upQuCpguZC4t6bs7dqU7iNOOImbdA7T4OmAA9D6mPwvuUxkGrZCNC8sRyN5ILrL61pWYlfgfeqBgVL2r5lWoCqEXR1Y7dZAzZCpep4QLzqbMcJkzH37b2rkZCWNxSaYnCAe6i69nKBwZDZD' },
+    function(res) { console.log(res) }
+  );
+}
+function photoToPage(){
+  FB.api('/1493608767521631/photos', 'post', { url:'http://24.media.tumblr.com/tumblr_m1ttif5puW1qcrr0lo1_500.png', message:'first', access_token:'EAAFAwL3E3A4BAEn0aBk6YNUJ14xXi4W6upQuCpguZC4t6bs7dqU7iNOOImbdA7T4OmAA9D6mPwvuUxkGrZCNC8sRyN5ILrL61pWYlfgfeqBgVL2r5lWoCqEXR1Y7dZAzZCpep4QLzqbMcJkzH37b2rkZCWNxSaYnCAe6i69nKBwZDZD' },
+    function(res) {
+id=res.post_id;
+alert('ok: ' + id);
+ console.log(res) }
+  )
+}
+
+function comment(){
+          
+var like=0;
+var mesalt="";
+  FB.api('1493608767521631_1822311127984725?fields=comments', {access_token:'EAAFAwL3E3A4BAEn0aBk6YNUJ14xXi4W6upQuCpguZC4t6bs7dqU7iNOOImbdA7T4OmAA9D6mPwvuUxkGrZCNC8sRyN5ILrL61pWYlfgfeqBgVL2r5lWoCqEXR1Y7dZAzZCpep4QLzqbMcJkzH37b2rkZCWNxSaYnCAe6i69nKBwZDZD'},
+    function(res) {
+//console.log(res.comments.data); 
+for (i in res.comments.data) {
+ FB.api('/'+res.comments.data[i].id+'?fields=like_count', {access_token:'EAAFAwL3E3A4BAEn0aBk6YNUJ14xXi4W6upQuCpguZC4t6bs7dqU7iNOOImbdA7T4OmAA9D6mPwvuUxkGrZCNC8sRyN5ILrL61pWYlfgfeqBgVL2r5lWoCqEXR1Y7dZAzZCpep4QLzqbMcJkzH37b2rkZCWNxSaYnCAe6i69nKBwZDZD'},
+    function(resp) {
+
+if(resp.like_count>like)
+{
+like=resp.like_count;
+console.log(like);
+ mesalt=res.comments.data[i].message;
+}
+
+
+}
+  );
+            
+ }
+}
+  );
+
+}
+
+
+        </script>
+
+        <button onclick="javascript:login();">Login Facebook</button>
+
+        <br>
+
+<button onclick="javascript:logout();">Logout from Facebook</button>
+<br>
+
+<button onclick="javascript:post();">post status on Facebook</button>
+<br>
+
+<button onclick="javascript:share();">share link</button>
+<br>
+
+<button onclick="javascript:upload();">upload photo</button>
+<br>
+<button onclick="javascript:postToPage();">post on page</button>
+<br>
+<button onclick="javascript:photoToPage();">post photo on page</button>
+<br>
+<button onclick="javascript:comment();">comment</button>
+</body>
+
+</html> 
+
+
